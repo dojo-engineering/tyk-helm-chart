@@ -138,7 +138,7 @@ pump:
   replicaCount: 1
   # containerPort: 9090
   image:
-    repository: tykio/tyk-pump-docker-pub
+    repository: docker.tyk.io/tyk-pump/tyk-pump
     tag: v1.4.0
     pullPolicy: Always
   # service:
