@@ -341,10 +341,14 @@ pump:
   enabled: true
 
   replicaCount: 1
+  # containerPort: 9090
   image:
     repository: tykio/tyk-pump-docker-pub
     tag: v1.4.0
     pullPolicy: Always
+  # service:
+    # type: NodePort
+    # port: 9090
   annotations: {}
   resources: {}
     # We usually recommend not to specify default resources and to leave this
