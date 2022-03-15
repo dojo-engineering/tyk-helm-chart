@@ -152,7 +152,7 @@ spec:
           {{- end }}
           {{- end }}
           - name: hybrid-gateway-middleware
-            mountPath: /opt/tyk-gateway/middleware
+            mountPath: /opt/tyk-gateway/middleware/
         livenessProbe:
           httpGet:
             scheme: "HTTP{{ if .Values.gateway.tls }}S{{ end }}"
