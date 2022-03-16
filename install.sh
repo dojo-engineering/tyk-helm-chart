@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 set -ex
-gcloud auth list
+#gcloud auth list
 #gcloud container clusters get-credentials platform --zone europe-west2-a --project firefly-devops-2018
 
 #helm upgrade --install tyk-hybrid ./tyk-hybrid -f ./tyk-hybrid/values.yaml --set redis.pass=$TYK_REDIS_KEY \
