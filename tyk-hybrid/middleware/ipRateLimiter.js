@@ -13,7 +13,7 @@
         var thisSession = JSON.parse(TykGetKeyData(thisIP ,spec.APIID))
         log(JSON.stringify(thisSession))
 
-        if (thisSession.status != "error"){
+        if (thisSession.status == "error"){
             var keyDetails = {
                 "allowance": 5,
                 "rate": 5,
@@ -28,7 +28,7 @@
                 "org_id": "62210785d0929d0001b113b1"
             }
             keyDetails.access_rights[spec.config_data.ipRateLimiter.api_id] = {
-                "api_id": spec.config_data.ipRateLimiter.api_id,
+                "api_id": spec.config_data.api_id,
                 "versions": spec.config_data.ipRateLimiter.versions,
             }
             
