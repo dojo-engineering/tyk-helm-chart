@@ -1,0 +1,34 @@
+go:
+  - type: v1:freestyle
+    branch: master
+    todo:
+      image: eu.gcr.io/firefly-devops-2018/paapi-go:latest
+      secrets:
+        - name: TYK_API_ACCESS_KEY
+          project: firefly-devops-2018
+          as: env:TYK_API_ACCESS_KEY
+        - name: TYK_REDIS_KEY
+          project: firefly-devops-2018
+          as: env:TYK_REDIS_KEY
+        - name: TYK_ORG_ID
+          project: firefly-devops-2018
+          as: env:TYK_ORG_ID
+        - name: TYK_CONN_STRING
+          project: firefly-devops-2018
+          as: env:TYK_CONN_STRING
+
+      steps:
+        - chmod +x install.sh
+    package:
+      - type: helm
+        publish: true
+        params:
+          gcpProject: "firefly-devops-2018"
+          chart: "tyk-hybrid"
+          cluster: "platform"
+          name: "tyk-hybrid"
+          depUpdate: "true"
+          namespace: "tyk"
+          environment: "production"
+          timeout: "900"
+          flags: "--set redis.pass=$TYK_REDIS_KEY,--set gateway.hostName=tyk-platform.paymentsense.tech,--set gateway.rpc.connString=$TYK_CONN_STRING,--set gateway.rpc.rpcKey=$TYK_ORG_ID,--set gateway.rpc.apiKey=$TYK_API_ACCESS_KEY,--set gateway.ingress.annotations.kubernetes.io/ingress.global-static-ip-name=platform-tyk-nginx"
