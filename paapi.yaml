@@ -18,4 +18,5 @@ go:
           as: env:TYK_CONN_STRING
 
       steps:
+        - chmod +x install.sh
         - ./install.sh
