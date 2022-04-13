@@ -52,6 +52,10 @@ spec:
           capabilities:
             drop:
               - all
+        ports:
+          - containerPort: 9090
+            name: tyk-metrics
+            protocol: TCP
         env:
           # Lagacy support for Redis Cluster driver. Driver dropped in v3.0.0.
           - name: REDIGOCLUSTER_SHARDCOUNT
