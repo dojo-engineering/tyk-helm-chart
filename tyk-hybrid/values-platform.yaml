@@ -22,7 +22,7 @@ secrets:
   APISecret: CHANGEME
   # If you don't want to store plaintext secrets in the Helm value file and would
   # rather provide the k8s Secret externally please populate the value below
-  useSecretName: ""
+  useSecretName: "tyk-hybrid-gateway-secrets"
 
 redis:
   # The addrs value will allow you to set your Redis addresses. If you are
@@ -36,7 +36,7 @@ redis:
 
   # Redis password
   # If you're using Bitnami Redis chart please input your password in the field below
-  pass: "nHK7JYI1hm"
+  pass: ""
 
   # Enables SSL for Redis connection. Redis instance will have to support that.
   # Default value: false
@@ -55,7 +55,7 @@ redis:
 
 gateway:
   # The hostname to bind the Gateway to.
-  hostName: api-poc.paymentsense.tech
+  hostName: tyk-platform.paymentsense.tech
   # Sharding gateway allows you to selectively load APIs to specific gateways.
   # If enabled make sure you have at least one gateway that is not sharded.
   # Also be sure to match API segmentation tags with the tags selected below.
@@ -73,9 +73,9 @@ gateway:
     useSSL: true
     sslInsecureSkipVerify: true
     # orgID of your dashboard user
-    rpcKey: "62210785d0929d0001b113b1"
+    rpcKey: ""
     # API key of your dashboard user
-    apiKey: "dc84ec99a0bd46ce43b64e96c97170fe"
+    apiKey: ""
     #
     # For a classic cloud hybrid gateway use these settings:
     #
@@ -91,7 +91,7 @@ gateway:
   containerPort: 8080
   image:
     repository: tykio/tyk-gateway
-    tag: v3.2.1
+    tag: v4.0.0
     pullPolicy: Always
   service:
     type: ClusterIP
@@ -104,14 +104,16 @@ gateway:
     enabled: true
     annotations:
       kubernetes.io/ingress.allow-http: "false"
-      kubernetes.io/ingress.global-static-ip-name: "tyk-platform-poc"
+      kubernetes.io/ingress.global-static-ip-name: "platform-tyk-nginx"
     path: /*
     hosts:
       - api-poc.paymentsense.tech
+      - tyk-platform.paymentsense.tech
     tls:
       - secretName: paymentsense-tech-tls
         hosts:
           - api-poc.paymentsense.tech
+          - tyk-platform.paymentsense.tech
   resources: {}
     # We usually recommend not to specify default resources and to leave this
     # as a conscious choice for the user. This also increases chances charts
@@ -141,7 +143,7 @@ pump:
   replicaCount: 1
   image:
     repository: tykio/tyk-pump-docker-pub
-    tag: v1.4.0
+    tag: v1.5.1-rc5
     pullPolicy: Always
   annotations: {}
   resources: {}
@@ -152,14 +154,28 @@ pump:
     # as necessary, and remove the curly braces after 'resources:'.
     # limits:
     #  cpu: 100m
-    #  memory: 128Mi
+  #  memory: 128Mi
   # requests:
   #  cpu: 100m
   #  memory: 128Mi
   nodeSelector: {}
   tolerations: []
   affinity: {}
-  extraEnvs: []
+  extraEnvs:
+    - name: TYK_PMP_PUMPS_PROMETHEUS_TYPE
+      value: "prometheus"
+    - name: TYK_PMP_PUMPS_PROMETHEUS_META_PATH
+      value: "/metrics"
+    - name: TYK_PMP_PUMPS_PROMETHEUS_META_ADDR
+      value: "0.0.0.0:9090"
+    - name: TYK_PMP_OMITCONFIGFILE
+      value: "true"
+    - name: TYK_PMP_DONTPURGEUPTIMEDATA
+      value: "true"
+    - name: TYK_PMP_PURGEDELAY
+      value: "2"
+    - name: TYK_PMP_LOG_LEVEL
+      value: "debug"
   mounts: []
 
 # deprecated - please use the rpcKey and apiKey in the gateway section
