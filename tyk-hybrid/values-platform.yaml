@@ -69,7 +69,7 @@ gateway:
   rpc:
     # On the Tyk Cloud Console find this value in the endpoints for your
     # control plane deployment
-    connString: "bare-roller-hyb.aws-euw2.cloud-ara.tyk.io:443"
+    connString: "short-cracker-hyb.aws-euw2.cloud-ara.tyk.io:443"
     useSSL: true
     sslInsecureSkipVerify: true
     # orgID of your dashboard user
