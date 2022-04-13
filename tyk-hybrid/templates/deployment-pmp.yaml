@@ -43,6 +43,10 @@ spec:
       - name: pump-{{ .Chart.Name }}
         image: "{{ .Values.pump.image.repository }}:{{ .Values.pump.image.tag }}"
         imagePullPolicy: {{ .Values.pump.image.pullPolicy }}
+        ports:
+        - containerPort: 9090
+          name: tyk-metrics
+          protocol: TCP
         workingDir: "/opt/tyk-pump"
         securityContext:
           runAsNonRoot: true
