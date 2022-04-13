@@ -30,7 +30,7 @@ redis:
   # or use the cluster configuration endpoint.
   # Default value: redis.{{ .Release.Namespace }}.svc.cluster.local:6379
   addrs:
-    - tyk-redis-master.api-gateway.svc.cluster.local
+    - tyk-redis-master.tyk.svc.cluster.local:6379
   #   This is the the DNS name of the redis as set when using Bitnami
   #   - tyk-redis-master.tyk.svc.cluster.local:6379
 
