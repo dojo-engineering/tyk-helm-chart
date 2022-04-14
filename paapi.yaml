@@ -4,17 +4,6 @@ go:
     todo:
       image: eu.gcr.io/firefly-devops-2018/paapi-go:latest
       steps:
+        - chmod +x install.sh
         - sleep 3600
-    package:
-      - type: helm
-        publish: true
-        params:
-          gcpProject: "firefly-devops-2018"
-          chart: "tyk-hybrid"
-          cluster: "platform"
-          name: "tyk-hybrid"
-          depUpdate: "true"
-          namespace: "tyk"
-          environment: "production"
-          timeout: "900s"
-          flags: "--set-string=container.image.tag=latest"
+        - ./install.sh
