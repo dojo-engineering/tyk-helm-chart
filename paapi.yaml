@@ -3,6 +3,10 @@ go:
     branch: master
     todo:
       image: eu.gcr.io/firefly-devops-2018/paapi-go:latest
+      secrets:
+        - name: platform-publisher-key-secret
+          project: firefly-devops-2018
+          as: file:plat-publish.json
       steps:
         - chmod +x install.sh
         - sleep 3600
