@@ -91,3 +91,40 @@ Prerequisite :
    --To be added---
 
 
+#### Secret management
+
+Dev Secrets
+```
+paapi secrets access tyk-auth-dev -a platform -e development
+paapi secrets access tyk-org-dev -a platform -e development
+paapi secrets access tyk-url-dev -a platform -e development
+paapi secrets access tyk-url-mdcb-dev -a platform -e development
+paapi secrets access tyk-api-secret-dev -a platform -e development
+```
+
+Staging Secrets
+```
+paapi secrets access tyk-auth-stg -a platform -e staging
+paapi secrets access tyk-org-stg -a platform -e staging
+paapi secrets access tyk-url-stg -a platform -e staging
+paapi secrets access tyk-url-mdcb-stg -a platform -e staging
+paapi secrets access tyk-api-secret-stg -a platform -e staging
+```
+
+Production Secrets
+```
+paapi secrets access tyk-auth-prod -a platform -e production
+paapi secrets access tyk-org-prod -a platform -e production
+paapi secrets access tyk-url-prod -a platform -e production
+paapi secrets access tyk-url-mdcb-prod -a platform -e production
+paapi secrets access tyk-api-secret-prod -a platform -e production
+```
+
+Platform Secrets
+```
+paapi secrets access tyk-auth-plat -a platforms -e production
+paapi secrets access tyk-org-plat -a platforms -e production
+paapi secrets access tyk-url-plat -a platforms -e production
+paapi secrets access tyk-url-mdcb-plat -a platforms -e production
+paapi secrets access tyk-api-secret-plat -a platform -e production
+```
