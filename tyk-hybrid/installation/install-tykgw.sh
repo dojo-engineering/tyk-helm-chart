@@ -1,17 +1,16 @@
+#!/bin/bash
+
 case $1 in
 	platform)
 		source installation/setenv-platform.sh
 		;;
 	dev)
-		echo "setting env for dev...."
 		source installation/setenv-dev.sh
 		;;
 	stg)
-		echo "setting env for staging...."
 		source installation/setenv-staging.sh
 		;;
 	prod)
-		echo "Setting env for prod...."
 		source installation/setenv-prod.sh
 		;;
 	*)
@@ -20,15 +19,19 @@ case $1 in
 		;;
   esac
 
-echo $"\n\n-------------------------------------\nCreating secret for $1"
-
-
+echo
+echo
+echo "-------------------------------------"
+echo "Updating helm"
 helm repo add bitnami https://charts.bitnami.com/bitnami
 helm repo update
 
 kubectl create namespace tyk
 
-echo $"\n\n-------------------------------------\nInstalling redis..."
+echo
+echo
+echo "-------------------------------------"
+echo "Installing redis..."
 
 helm install \
 tyk-redis bitnami/redis \
@@ -38,11 +41,17 @@ tyk-redis bitnami/redis \
 
 export REDIS_PASSWORD=$(kubectl get secret --namespace tyk tyk-redis -o jsonpath="{.data.redis-password}" | base64 --decode)
 
-echo $"\nTYK_AUTH=${TYK_AUTH}"
-echo $"\nTYK_ORG=${TYK_ORG}"
-echo $"\nTYK_MODE=${API_SECRET}"
-echo $"\nTYK_URL=${TYK_URL_MCDB}"
-echo $"\nREDIS_PASSWORD=${REDIS_PASSWORD}"
+echo
+echo
+echo "-------------------------------------"
+echo "Creating secret for $1..."
+
+
+#echo "TYK_AUTH=${TYK_AUTH}"
+#echo "TYK_ORG=${TYK_ORG}"
+#echo "API_SECRET=${API_SECRET}"
+#echo "REDIS_PASSWORD=${REDIS_PASSWORD}"
+
 
 
 kubectl create secret -n tyk generic tyk-hybrid-gateway-secrets \

@@ -18,4 +18,3 @@ tyk-headless/mounts/*
 **/values-with-ingress-local*.yaml
 tyk-hybrid/values/
 **/todo-secrets/*
-**/setenv-*
