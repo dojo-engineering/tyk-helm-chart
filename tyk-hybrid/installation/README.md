@@ -79,7 +79,7 @@ Prerequisite :
 
    1. ```git clone https://github.com/dojo-engineering/tyk-helm-chart.git```
    2. ```cd tyk-helm-chart/tyk-hybrid/```
-   3. We need to create secret for tyk data plane to communicate with control plane, Get in touch with [API Gateway Squad](mailto:IDPGateway@dojo.tech?subject=[Need]%20Tyk%20Secret%20for%20Environment), to get secret.
+   3. We need to create secret for tyk data plane to communicate with control plane, Get in touch with [API Gateway Squad](mailto:IDPGateway@dojo.tech?subject=[Need]%20Tyk%20Secret%20for%20Environment%20[env_name(dev/stg/prod)]), to get secret.
       1. ```./installation/install-tykgw.sh``` (internal to API gateway squad)
    4. Create TLS secret for internal ingress based on internal domain application wants to use (*.dojo.dev/ *.dojo.tech/ *.paymentsense.tech)
    5. Update values.yaml changing on internal domain, TLS secret.
@@ -90,7 +90,7 @@ Prerequisite :
 #### Install Tyk Operator and CRD
    1. ```git clone https://github.com/dojo-engineering/tyk-operator.git```
    2. ```cd tyk-operator```
-   3. Get access to environment specific secrets for api gateway by requesting  [API Gateway Squad](mailto:IDPGateway@dojo.tech?subject=[Need]%20Tyk%20Secret%20for%20Environment)
+   3. Get access to environment specific secrets for api gateway by requesting  [API Gateway Squad](mailto:IDPGateway@dojo.tech?subject=[Need]%20Tyk%20Secret%20for%20Environment%20[env_name(dev/stg/prod)])
    4. Download platform api binary from [here](https://platform.paymentsense.tech/docs/Platform-Actions/api-actions#auth-generator--wrapper-paapi-cli)
    5. Login and update to latest binary ```paapi upgrade --replace```
    6. ```./installation/installcrd.sh <dev/stg/prod>```
