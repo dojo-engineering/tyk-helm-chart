@@ -88,10 +88,14 @@ Prerequisite :
    8. Try https://<internalDomain>/hello to check if cluster tyk data plane is up and running.
 
 #### Install Tyk Operator and CRD
-   --To be added---
-
-
-#### Secret management
+   1. ```git clone https://github.com/dojo-engineering/tyk-operator.git```
+   2. ```cd tyk-operator```
+   3. Get access to environment specific secrets for api gateway by requesting  [API Gateway Squad](mailto:IDPGateway@dojo.tech?subject=[Need]%20Tyk%20Secret%20for%20Environment)
+   4. Download platform api binary from [here](https://platform.paymentsense.tech/docs/Platform-Actions/api-actions#auth-generator--wrapper-paapi-cli)
+   5. Login and update to latest binary ```paapi upgrade --replace```
+   6. ```./installation/installcrd.sh <dev/stg/prod>```
+   
+#### Secret management (Internal to API GW squad)
 
 Dev Secrets
 ```
