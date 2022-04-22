@@ -1,0 +1,19 @@
+---
+apiVersion: networking.gke.io/v1
+kind: MultiClusterService
+metadata:
+  name: gateway-svc-tyk-hybrid-mcs
+  namespace: tyk
+  annotations:
+    cloud.google.com/backend-config: '{"ports": {"443":"gateway-svc-tyk-health-check-config"}}'
+spec:
+  template:
+    spec:
+      selector:
+        app: gateway-tyk-hybrid
+        release: tyk-hybrid
+      ports:
+        - name: http
+          protocol: TCP
+          port: 443
+          targetPort: 8080

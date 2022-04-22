@@ -35,6 +35,7 @@ echo "Installing redis..."
 
 helm install \
 tyk-redis bitnami/redis \
+--set global.storageClass=premium-rwo \
 --namespace tyk \
 --create-namespace \
 --wait
@@ -47,10 +48,10 @@ echo "-------------------------------------"
 echo "Creating secret for $1..."
 
 
-#echo "TYK_AUTH=${TYK_AUTH}"
-#echo "TYK_ORG=${TYK_ORG}"
-#echo "API_SECRET=${API_SECRET}"
-#echo "REDIS_PASSWORD=${REDIS_PASSWORD}"
+echo "TYK_AUTH=${TYK_AUTH}"
+echo "TYK_ORG=${TYK_ORG}"
+echo "API_SECRET=${API_SECRET}"
+echo "REDIS_PASSWORD=${REDIS_PASSWORD}"
 
 
 
@@ -60,6 +61,13 @@ kubectl create secret -n tyk generic tyk-hybrid-gateway-secrets \
   --from-literal "redisPass=${REDIS_PASSWORD}" \
   --from-literal "rpcKey=${TYK_ORG}"
 
+echo
+echo
+echo "-------------------------------------"
+echo "Adding pod and service monitor CRD..."
+kubectl apply -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_servicemonitors.yaml
+kubectl apply -f https://raw.githubusercontent.com/grafana/agent/main/production/operator/crds/monitoring.coreos.com_podmonitors.yaml
+kubectl create namespace grafana-agent
 #TBD in separate steps
 # Create TLS secret based on your domain *.dojo.dev/ *.dojo.tech/ *.paymentsense.tech
 

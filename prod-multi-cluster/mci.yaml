@@ -1,0 +1,24 @@
+---
+apiVersion: networking.gke.io/v1
+kind: MultiClusterIngress
+metadata:
+  name: gateway-ing-tyk-hybrid-mci-ingress
+  namespace: tyk
+  annotations:
+    networking.gke.io/frontend-config: frontend-redirect-tls-policy
+    networking.gke.io/static-ip: "production-api-gateway"
+spec:
+  template:
+    spec:
+      backend:
+        serviceName: gateway-svc-tyk-hybrid-mcs
+        servicePort: 443
+      rules:
+        - host: prod-api.dojo.dev
+          http:
+            paths:
+              - backend:
+                  serviceName: gateway-svc-tyk-hybrid-mcs
+                  servicePort: 443
+      tls:
+        - secretName: dojo-dev-tls

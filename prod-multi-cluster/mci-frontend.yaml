@@ -1,0 +1,10 @@
+---
+apiVersion: networking.gke.io/v1beta1
+kind: FrontendConfig
+metadata:
+  name: frontend-redirect-tls-policy
+  namespace: tyk
+spec:
+  sslPolicy: tls-12-policy
+  redirectToHttps:
+    enabled: true

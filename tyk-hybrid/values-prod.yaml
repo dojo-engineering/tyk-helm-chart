@@ -55,13 +55,13 @@ redis:
 
 gateway:
   # The hostname to bind the Gateway to.
-  hostName: prod-api.dojo.dev
+  hostName: api.dojo.tech
   # Sharding gateway allows you to selectively load APIs to specific gateways.
   # If enabled make sure you have at least one gateway that is not sharded.
   # Also be sure to match API segmentation tags with the tags selected below.
   sharding:
-    enabled: false
-    tags: ""
+    enabled: true
+    tags: "prod-global"
   # When true, sets the gateway protocol to HTTPS.
   tls: false
   # For on premise MDCB setups simply change the connection string to point to
@@ -91,7 +91,7 @@ gateway:
   containerPort: 8080
   image:
     repository: tykio/tyk-gateway
-    tag: v3.2.1
+    tag: v4.0.0
     pullPolicy: Always
   service:
     type: ClusterIP
@@ -101,7 +101,7 @@ gateway:
   # Creates an ingress object in k8s. Will require an ingress-controller and
   # annotation to that ingress controller.
   ingress:
-    enabled: true
+    enabled: false
     annotations:
       cloud.google.com/app-protocols: '{"http":"HTTPS"}'
       kubernetes.io/ingress.allow-http: "false"
